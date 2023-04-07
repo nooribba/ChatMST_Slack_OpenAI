@@ -59,7 +59,7 @@
 * QnA
   * Default Model: gpt-3.5-turbo
   * Slack 채널에 추가한 Bot App을 멘션 후 질문글 작성
-  ![help](https://user-images.githubusercontent.com/40586079/230657382-adcbff93-d3d1-43c6-b1ca-40f038731b82.png)
+  ![help](https://user-images.githubusercontent.com/40586079/230658169-f7d820ad-9594-4de8-b425-6fcfdd2c57f2.png)
     * text-davinci-003 model로 변경 가능
       * Bot 멘션 후 <font color="orange">[model=davinci]</font> 뒤에 질문글 작성
 * 이미지 생성
