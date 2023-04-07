@@ -28,7 +28,7 @@
 >   * OAuth Token
 >   * Incoming Webhooks
 >   * Event Subscriptions
-  ![slack app setting](./imgs/Slack_App_Setting_1.PNG)
+  ![slack app setting](imgs/Slack_App_Setting_1.PNG)
 
 </div>
 </details>
@@ -55,16 +55,16 @@
   
 ## Usage
 * Slack 채널 내에서 <font size='3em' color="orange">help</font> 입력하면 사용법 안내
-  ![help](./imgs/help.PNG)
+  ![help](imgs/help.PNG)
 * QnA
   * Default Model: gpt-3.5-turbo
   * Slack 채널에 추가한 Bot App을 멘션 후 질문글 작성
-  ![help](./imgs/sample_qna1.PNG)
+  ![help](imgs/sample_qna1.PNG)
     * text-davinci-003 model로 변경 가능
       * Bot 멘션 후 <font color="orange">[model=davinci]</font> 뒤에 질문글 작성
 * 이미지 생성
   * Model: DALL·E
   * Bot 멘션 후 <font color="orange">[image=create]</font> 뒤에 생성하고자 하는 이미지에 대한 설명글 작성
-  ![help](./imgs/sample_qna2.PNG)
+  ![help](imgs/sample_qna2.PNG)
     * 내부적으로 [한글->영어로 번역 요청] + [이미지 생성 요청] 2번 요청에 의한 응답 처리
       * 영어로 요청 시 더 정확한 결과
