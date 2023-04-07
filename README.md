@@ -51,8 +51,7 @@
 >     * SLACK_WEBHOOK_URL
 >     * SLACK_CHANNEL
 >     * OPENAI_API_KEY
->   * Lambda Layer 추가
->  * Lambda Code 작성
+>  * Lambda Code 작성 배포
   
 ## Usage
 * Slack 채널 내에서 <font size='3em' color="orange">help</font> 입력하면 사용법 안내
