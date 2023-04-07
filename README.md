@@ -38,8 +38,9 @@
 <div markdown="1">
 
 > * Lambda Layer 생성 및 추가
+>   * OpenAI API 사용을 위한 python module(zip)
 > * Lambda Function 생성
->   * Runtime: python3.9
+>   * Runtime: python 3.9
 > * Lambda 세팅
 >   * Time Limit(1분 이상)
 >   * Memory(256MB 이상)
