@@ -66,6 +66,23 @@ def post_slack_basic(response_message_ko):
 
     with urllib.request.urlopen(request) as response:
         slack_message = response.read()
+
+def post_slack_thread(response_message_ko, channel, thread_ts):
+    message = response_message_ko
+    send_data = {
+        "text": message,
+        "challenge": message,
+        "channel": channel,
+        "thread_ts": thread_ts
+    }
+    send_text = json.dumps(send_data)
+    request = urllib.request.Request(
+        SLACK_WEBHOOK_URL, 
+        data=send_text.encode('utf-8'), 
+    )
+
+    with urllib.request.urlopen(request) as response:
+        slack_message = response.read()
     
 welcome_text = "A) chatMST에 오신걸 환영합니다.\n사용법을 확인하려면 `help` 라고 쳐보세요."
 help_text = "A) 사용법에 대해 알려 드리겠습니다.\n\n*[공통]*\n*chatMST를 사용하기 위해서는 저를 꼭 멘션해주세요* -> *`@chatMST`*\n\n*[QnA]*\n묻고 싶은 글을 자유롭게 작성해 주세요. 최대한 자세히 작성할수록 좋아요.```@chatMST 질문글```\n만약 저의 훈련 모델을 변경하고 싶다면 질문 글 제일 앞에 [model=davinch] 를 넣어주세요.(default model=gpt-3.5-turbo)\n```@chatMST [model=davinch] 질문글\n한글이 깨진다면 기본 모델에 글 복사하여 한국어로 번역을 요청해 보세요.```\n\n*[이미지 생성]*\n생성하고자 하는 이미지에 대한 설명 제일 앞에 [image=create] 를 넣어주세요.\n```@chatMST [image=create] 생성 이미지에 대한 설명글```\n\n*[이미지 편집]*\n-"
@@ -96,14 +113,13 @@ def lambda_handler(event, context):
             type = body['event']['type']
             prompt = body['event']['text']
             btype = body['type']
-            print(f"retry num: {retry_num} /event type: {type} / body type: {btype}")
+            thread_ts = body['event']['ts']
+            # print(f"retry num: {retry_num} / event type: {type} / body type: {btype} / thread ts: {thread_ts}")
                 
             max_tokens = 1500
             
             if type=='app_mention' and 'user' in body['event'] and re.match("^<@"+SLACK_BOT_ID+">", prompt) and 'A)' not in prompt and retry_num == '1':
-                print(f"prompt1: {prompt}")
                 prompt = prompt.replace("^<@"+SLACK_BOT_ID+">","")
-                print(f"prompt2: {prompt}")
                 
                 if '[model=davinci]' in prompt:
                     prompt = prompt.replace("[model=davinci]","")
@@ -116,9 +132,9 @@ def lambda_handler(event, context):
                 else:
                     answer = query_chat_completion(prompt)
                     answer_text = 'A) '+answer['choices'][0]['message']['content'].strip() # gpt-turbo(chat completion)
-                print(f"answer_text: {answer_text}")
+                # print(f"answer_text: {answer_text}")
                 response['body'] = json.dumps({'message': answer_text})
-                post_slack_basic(answer_text)
+                post_slack_thread(answer_text, channel, thread_ts)
             elif '에 참여했습니다.' in prompt and 'chatmst' in prompt:
                 post_slack_basic(welcome_text)
             elif 'help' == prompt:
